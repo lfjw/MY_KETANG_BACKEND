@@ -42,6 +42,7 @@ npm i http-status-codes -S
 ```sh
 npx tsconfig.json
 
+# 为什么不用tsx --init 需要配置太多，使用npx简洁，不需要自己改动
 ? Pick the framework you're using: 
   react 
   react-native 
@@ -58,3 +59,7 @@ npx tsconfig.json
   "dev": "cross-env PORT=8000 nodemon --exec ts-node --files src/index.ts"
 }
 ```
+
+### 1.5 .env
+
+- 你的敏感信息，不要提交到github上，应该放到环境变量里，忽略提交
