@@ -12,9 +12,7 @@ import helmet from 'helmet';
 
 import errorMiddleware from './middlewares/errorMiddleware';
 
-
 const app: Express = express();
-
 
 app.use(morgan("dev"));
 app.use(cors());
