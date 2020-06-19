@@ -1,9 +1,9 @@
 
 import { Request, Response, NextFunction } from 'express';
-import HttpException from '../exceptions/HttpException';
+import HttpException from "../exceptions/HttpException";
 import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+
 const errorMiddleware = (err: HttpException, _req: Request, res: Response, _next: NextFunction) => {
-  
   let result: any = {
     success: false,
     message: err.message
