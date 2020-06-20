@@ -88,8 +88,8 @@ UserSchema.methods.getAccessToke = function (this: UserDocument): string {
   // this._id == this.id
   // this.id 是语法糖，指向this._id,仅限于模型上
   let payload: UserPayload = { id: this._id } // payload是放在jwt token里存放的数据
-  // 1小时过期 1h
-  return jwt.sign(payload, process.env.JWT_SECRET_KEY || 'jw', { expiresIn: '5s ' })
+  // 1小时过期 1h 5s
+  return jwt.sign(payload, process.env.JWT_SECRET_KEY || 'jw', { expiresIn: '1h' })
 }
 
 
