@@ -18,7 +18,7 @@ import { UserPayload } from 'src/typings/payload';
 // 注册
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   const { username, password, confirmPassword, email } = req.body
-  
+
   let { valid, errors } = validateRegisterInput(username, password, confirmPassword, email)
 
   try {
@@ -109,37 +109,23 @@ export const validate = async (req: Request, res: Response, next: NextFunction) 
 }
 
 
-// /**
-//  * 登录校验
-//  */
-// export const validate = (req: Request, res: Response, next: NextFunction) => {
-//   const authorization = req.headers.authorization;
-//   if (!authorization) {
-//     return next(new HttpException(UNAUTHORIZED, 'authorization未提供'));
-//   }
 
-//   console.log(res);
+export const uploadAvatar = async (req: Request, res: Response, next: NextFunction) => {
 
-//   const access_token = authorization.split(' ')[1];//Bearer access_token
+  try {
+    const { userId } = req.body
+    
+    // protocol 协议  http://
+    let avatar = `${req.protocol}://${req.headers.host}/uploads/${req.file.filename}`
 
-//   if (!access_token) {
-//     return next(new HttpException(UNAUTHORIZED, 'access_token未提供'));
-//   }
+    await User.updateOne({ _id: userId }, { avatar })
 
-//   try {
-//     const userPayload: UserPayload = jwt.verify(access_token, process.env.JWT_SECRET_KEY || 'jw') as UserPayload;
-//     console.log(userPayload);
-//   } catch (error) {
-//     next(new HttpException(UNAUTHORIZED, 'access_token不正确'));
-//   }
-// }
-
-
-
-// /**
-//  * 上传头像
-//  */
-// export const uploadAvatar = () => {
-
-// }
-
+    // 处理上传的文件，然后更新数据库，更新此用户对应的avatar字段，然后返回真实的图片路径
+    res.json({
+      success: true,
+      data: avatar//'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+    })
+  } catch (error) {
+    next(error)
+  }
+}
