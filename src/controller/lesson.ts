@@ -18,11 +18,16 @@ export const list = async (req: Request, res: Response) => {
   let total: number = await Lesson.count(query) // 查询复合条件的总条数
   // 1 生序 -1 降序
   let lessons: LessonDocument[] = await Lesson.find(query).sort({ order: 1 }).skip(newOffset).limit(newLimit)
-  res.json({
-    success: true,
-    data: {
-      list: lessons,
-      hasMore: total > newOffset + newLimit // 20> 0+ 5 / 20 > 5+ 5 / 
-    }
-  })
+  
+  
+  setTimeout(() => {
+    res.json({
+      success: true,
+      data: {
+        list: lessons,
+        hasMore: total > newOffset + newLimit // 20> 0+ 5 / 20 > 5+ 5 / 
+      }
+    })
+  }, 1000);
+
 }

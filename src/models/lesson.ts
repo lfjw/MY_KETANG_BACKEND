@@ -27,7 +27,7 @@ const LessonSchema: Schema<LessonDocument> = new Schema({
   timestamps: true, toJSON: {
     transform: function (_doc: LessonDocument, result: LessonDocument) {
       result.id = result._id;
-      delete result.id;
+      delete result._id;
       delete result.__v;
       return result;
     }
